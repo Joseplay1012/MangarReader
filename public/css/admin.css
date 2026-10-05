@@ -1,0 +1,297 @@
+/* ==========================================================================
+   MANGA READER - ADMIN DASHBOARD & EDITORS (CLEAN & SOLID)
+   ========================================================================== */
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .admin-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Sidebar */
+.admin-sidebar {
+  background-color: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  list-style: none;
+}
+
+.admin-nav-item a {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.admin-nav-item a:hover {
+  background-color: var(--bg-surface-secondary);
+  color: var(--text-main);
+}
+
+.admin-nav-item a.active {
+  background-color: var(--primary-light);
+  color: var(--primary);
+  border-left: 3px solid var(--primary);
+}
+
+.admin-main {
+  padding: 2rem;
+  background-color: var(--bg-main);
+  overflow-y: auto;
+}
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Stats Cards */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background-color: var(--bg-surface-secondary);
+}
+
+.stat-icon-mangas { color: var(--primary); background-color: var(--primary-light); }
+.stat-icon-chapters { color: #1A73E8; background-color: #E8F0FE; }
+.stat-icon-pages { color: #137333; background-color: #E6F4EA; }
+.stat-icon-storage { color: #B06000; background-color: #FEF7E0; }
+
+.stat-val {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.stat-lbl {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* Tables */
+.table-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.table-header {
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-surface);
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.admin-table th {
+  padding: 0.75rem 1.25rem;
+  background-color: var(--bg-surface-secondary);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-table td {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-main);
+  vertical-align: middle;
+}
+
+.admin-table tr:hover td {
+  background-color: var(--bg-main);
+}
+
+.table-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Dropzone & Uploads */
+.upload-dropzone {
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 2rem 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--bg-main);
+  transition: border-color var(--transition-fast);
+}
+
+.upload-dropzone:hover, .upload-dropzone.dragover {
+  border-color: var(--primary);
+  background-color: var(--primary-light);
+}
+
+.upload-icon {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   DRAG & DROP PAGE REORDERING GRID (SOLID & CLEAN)
+   ========================================================================== */
+.pages-reorder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.page-reorder-item {
+  position: relative;
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: grab;
+  transition: border-color var(--transition-fast);
+  user-select: none;
+}
+
+.page-reorder-item:active {
+  cursor: grabbing;
+}
+
+.page-reorder-item.dragging {
+  opacity: 0.4;
+  border-color: var(--primary);
+}
+
+.page-reorder-item.drag-over {
+  border-color: var(--primary);
+  border-width: 2px;
+}
+
+.page-thumb-wrapper {
+  position: relative;
+  aspect-ratio: 2/3;
+  width: 100%;
+  background-color: var(--bg-surface-secondary);
+}
+
+.page-thumb-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-number-tag {
+  position: absolute;
+  top: 0.35rem;
+  left: 0.35rem;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #FFFFFF;
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.page-item-controls {
+  padding: 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-surface-secondary);
+  border-top: 1px solid var(--border-light);
+}
+
+.page-control-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.15rem;
+}
+
+.page-control-btn:hover {
+  color: var(--primary);
+}
+
+.page-control-btn.delete-btn:hover {
+  color: var(--primary);
+}
+
+/* Progress bar */
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background-color: var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  margin: 0.75rem 0;
+  display: none;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: var(--primary);
+  width: 0%;
+  transition: width 0.2s ease;
+}

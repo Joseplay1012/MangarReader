@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Busca de Mangás — MangaReader</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+        <span>Manga<span class="highlight">Reader</span></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Início</a></li>
+        <li><a href="/mangas" class="nav-link"><i class="fa-solid fa-layer-group"></i> Catálogo</a></li>
+        <li><a href="/search" class="nav-link active"><i class="fa-solid fa-tags"></i> Busca</a></li>
+        <li><a href="/admin" class="nav-link" style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Painel Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="mobile-toggle" id="mobile-nav-toggle" aria-label="Abrir Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding-top: 2rem;">
+    <div class="container">
+
+      <!-- Big Search Bar -->
+      <div style="max-width: 650px; margin: 0 auto 2.5rem; text-align: center;">
+        <h1 style="font-size: 1.85rem; margin-bottom: 1.25rem;">Buscar Mangás & Autores</h1>
+        <div style="position: relative;">
+          <input type="text" id="search-page-input" class="form-control" style="padding: 0.85rem 1.25rem; font-size: 1rem; border-radius: var(--radius-sm);" placeholder="Digite o nome de um mangá, autor ou gênero...">
+        </div>
+      </div>
+
+      <!-- Results Header -->
+      <div style="margin-bottom: 1.5rem;">
+        <h2 id="search-title-label" style="font-size: 1.2rem; color: var(--text-muted);"></h2>
+      </div>
+
+      <!-- Results Container -->
+      <div id="search-results-container"></div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="nav-brand">
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+          <span>Manga<span class="highlight">Reader</span></span>
+        </a>
+        <p class="footer-copy">© 2026 MangaReader</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/search.js"></script>
+</body>
+</html>

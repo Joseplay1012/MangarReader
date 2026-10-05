@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autores & Gêneros — MangaReader Admin</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo">📚</div>
+        <span>Manga<span class="highlight">Admin</span></span>
+      </a>
+
+      <ul class="admin-nav">
+        <li class="admin-nav-item"><a href="/admin"><span>📊</span> Dashboard</a></li>
+        <li class="admin-nav-item"><a href="/admin/manga-editor"><span>➕</span> Mangás</a></li>
+        <li class="admin-nav-item"><a href="/admin/chapter-editor"><span>📑</span> Capítulos</a></li>
+        <li class="admin-nav-item"><a href="/admin/taxonomies" class="active"><span>🏷️</span> Autores & Tags</a></li>
+        <li class="admin-nav-item"><a href="/" target="_blank"><span>🌐</span> Ver Site</a></li>
+      </ul>
+
+      <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+        <div style="font-size: 0.85rem;">
+          <div style="font-weight: 700; color: #fff;" id="admin-username">Admin</div>
+          <div style="font-size: 0.75rem; color: var(--text-subtle);">Administrador</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="handleAdminLogout()">Sair</button>
+      </div>
+    </aside>
+
+    <!-- Main Admin Area -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <div>
+          <h1 style="font-size: 1.8rem; font-weight: 800;">Gerenciar Autores & Gêneros</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Crie, edite e organize os autores e tags do catálogo</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        
+        <!-- Tags Section -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3 style="font-size: 1.1rem; font-weight: 700;">🏷️ Gêneros & Tags</h3>
+            <button class="btn btn-primary btn-sm" onclick="openCreateTagModal()">+ Nova Tag</button>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Slug</th>
+                  <th>Mangás</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tags-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Authors Section -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3 style="font-size: 1.1rem; font-weight: 700;">👤 Autores / Mangakás</h3>
+            <button class="btn btn-primary btn-sm" onclick="openCreateAuthorModal()">+ Novo Autor</button>
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>Slug</th>
+                  <th>Mangás</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="authors-table-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Tag Modal -->
+  <div class="modal-backdrop" id="tag-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="tag-modal-title">Nova Tag</h3>
+        <button class="btn btn-secondary btn-sm" onclick="closeModal('tag-modal')">✕</button>
+      </div>
+      <form id="tag-form">
+        <input type="hidden" id="tag-id-input">
+        <div class="form-group">
+          <label class="form-label" for="tag-name-input">Nome da Tag *</label>
+          <input type="text" id="tag-name-input" class="form-control" required placeholder="Ex: Isekai">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="tag-slug-input">Slug (Opcional)</label>
+          <input type="text" id="tag-slug-input" class="form-control" placeholder="isekai">
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('tag-modal')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Tag</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Author Modal -->
+  <div class="modal-backdrop" id="author-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="author-modal-title">Novo Autor</h3>
+        <button class="btn btn-secondary btn-sm" onclick="closeModal('author-modal')">✕</button>
+      </div>
+      <form id="author-form">
+        <input type="hidden" id="author-id-input">
+        <div class="form-group">
+          <label class="form-label" for="author-name-input">Nome do Autor *</label>
+          <input type="text" id="author-name-input" class="form-control" required placeholder="Ex: Eiichiro Oda">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="author-slug-input">Slug (Opcional)</label>
+          <input type="text" id="author-slug-input" class="form-control" placeholder="eiichiro-oda">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="author-bio-input">Biografia</label>
+          <textarea id="author-bio-input" class="form-control" placeholder="Biografia do autor..." style="min-height: 80px;"></textarea>
+        </div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" onclick="closeModal('author-modal')">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Autor</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/admin-auth.js"></script>
+  <script src="/js/admin-taxonomies.js"></script>
+</body>
+</html>

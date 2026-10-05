@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gênero / Tag — MangaReader</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+        <span>Manga<span class="highlight">Reader</span></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Início</a></li>
+        <li><a href="/mangas" class="nav-link"><i class="fa-solid fa-layer-group"></i> Catálogo</a></li>
+        <li><a href="/search" class="nav-link"><i class="fa-solid fa-tags"></i> Busca</a></li>
+        <li><a href="/admin" class="nav-link" style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Painel Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="mobile-toggle" id="mobile-nav-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding-top: 2rem;" id="taxonomy-root">
+    <div class="container">
+
+      <!-- Tag Banner -->
+      <div style="background-color: var(--bg-surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 2rem; margin-bottom: 2.5rem; box-shadow: var(--shadow-sm);">
+        <span class="badge badge-completed" id="taxonomy-type-badge" style="margin-bottom: 0.5rem;"><i class="fa-solid fa-tag"></i> GÊNERO / TAG</span>
+        <h1 id="taxonomy-title" style="font-size: 1.85rem; margin-bottom: 0.5rem;">Carregando gênero...</h1>
+        <p id="taxonomy-desc" style="color: var(--text-muted); font-size: 0.95rem;"></p>
+      </div>
+
+      <!-- Mangas Section -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-accent"></span>
+            Mangás com este Gênero
+          </h2>
+          <span class="tag-pill" id="taxonomy-count">0 obras</span>
+        </div>
+        <div class="manga-grid" id="taxonomy-mangas-grid"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="nav-brand">
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+          <span>Manga<span class="highlight">Reader</span></span>
+        </a>
+        <p class="footer-copy">© 2026 MangaReader</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/author-tag.js"></script>
+</body>
+</html>

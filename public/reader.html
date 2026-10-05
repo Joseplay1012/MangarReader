@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leitor de Mangá — MangaReader</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/reader.css">
+</head>
+<body class="reader-body">
+
+  <!-- HUD Top Bar -->
+  <header class="reader-hud" id="reader-hud">
+    <div class="reader-hud-inner">
+      <div class="reader-hud-left">
+        <a href="/" class="reader-back-btn" id="hud-back-btn" title="Voltar ao Mangá">
+          <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <div class="reader-title-group">
+          <span class="reader-manga-title" id="hud-manga-title">Carregando mangá...</span>
+          <span class="reader-chapter-title" id="hud-chapter-title">Carregando capítulo...</span>
+        </div>
+      </div>
+
+      <div class="reader-hud-center">
+        <select class="chapter-select" id="hud-chapter-select" title="Trocar de Capítulo"></select>
+      </div>
+
+      <div class="reader-hud-right">
+        <button class="hud-btn" id="hud-mode-toggle" title="Alternar entre Página e Cascata (M)">
+          <i class="fa-solid fa-file-lines"></i> <span>Página</span>
+        </button>
+        <button class="hud-btn" id="hud-dir-toggle" title="Alternar Direção de Leitura">
+          <i class="fa-solid fa-arrow-right-long"></i> <span>LTR</span>
+        </button>
+        <button class="hud-btn hud-btn-icon" id="hud-fullscreen-toggle" title="Tela Cheia (F)">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <button class="hud-btn hud-btn-icon" id="hud-help-toggle" title="Atalhos do Teclado (?)">
+          <i class="fa-solid fa-circle-question"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Reader Root Container -->
+  <main class="reader-container" id="reader-root">
+    <div style="text-align: center; padding: 4rem;">
+      <div style="display: inline-block; width: 44px; height: 44px; border: 4px solid #2E2E2E; border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
+      <p style="margin-top: 1rem; color: var(--text-muted);">Carregando páginas do capítulo...</p>
+    </div>
+  </main>
+
+  <!-- Help & Shortcuts Modal -->
+  <div class="modal-backdrop" id="help-modal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 style="font-size: 1.15rem; color: #FFFFFF; display: flex; align-items: center; gap: 0.5rem;">
+          <i class="fa-solid fa-keyboard" style="color: var(--primary);"></i> Atalhos do Leitor
+        </h3>
+        <button class="btn btn-secondary btn-sm" id="close-help-modal">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="shortcut-grid">
+        <div class="shortcut-item">
+          <span>Próxima Página</span>
+          <span class="shortcut-key">→ / D / Space</span>
+        </div>
+        <div class="shortcut-item">
+          <span>Página Anterior</span>
+          <span class="shortcut-key">← / A</span>
+        </div>
+        <div class="shortcut-item">
+          <span>Alternar Modo (Página/Cascata)</span>
+          <span class="shortcut-key">M</span>
+        </div>
+        <div class="shortcut-item">
+          <span>Tela Cheia</span>
+          <span class="shortcut-key">F</span>
+        </div>
+        <div class="shortcut-item">
+          <span>Mostrar / Ocultar Barra</span>
+          <span class="shortcut-key">Clique na tela</span>
+        </div>
+        <div class="shortcut-item">
+          <span>Abrir esta ajuda</span>
+          <span class="shortcut-key">?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/history.js"></script>
+  <script src="/js/reader.js"></script>
+</body>
+</html>

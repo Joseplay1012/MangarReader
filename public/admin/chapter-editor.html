@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Capítulos & Páginas — MangaReader</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+  <div class="admin-layout">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo">📚</div>
+        <span>Manga<span class="highlight">Admin</span></span>
+      </a>
+
+      <ul class="admin-nav">
+        <li class="admin-nav-item"><a href="/admin"><span>📊</span> Dashboard</a></li>
+        <li class="admin-nav-item"><a href="/admin/manga-editor"><span>➕</span> Mangás</a></li>
+        <li class="admin-nav-item"><a href="/admin/chapter-editor" class="active"><span>📑</span> Capítulos</a></li>
+        <li class="admin-nav-item"><a href="/admin/taxonomies"><span>🏷️</span> Autores & Tags</a></li>
+        <li class="admin-nav-item"><a href="/" target="_blank"><span>🌐</span> Ver Site</a></li>
+      </ul>
+
+      <div style="margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between;">
+        <div style="font-size: 0.85rem;">
+          <div style="font-weight: 700; color: #fff;" id="admin-username">Admin</div>
+          <div style="font-size: 0.75rem; color: var(--text-subtle);">Administrador</div>
+        </div>
+        <button class="btn btn-secondary btn-sm" onclick="handleAdminLogout()">Sair</button>
+      </div>
+    </aside>
+
+    <!-- Main Admin Area -->
+    <main class="admin-main">
+      <div class="admin-header">
+        <div>
+          <h1 style="font-size: 1.8rem; font-weight: 800;" id="chapter-editor-title">Novo Capítulo & Páginas</h1>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Selecione múltiplas imagens, ordene-as por arrastar e soltar (Drag & Drop) e publique</p>
+        </div>
+        <div>
+          <a href="/admin" class="btn btn-secondary">Voltar ao Painel</a>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+        
+        <!-- Chapter Form Card -->
+        <div class="table-card" style="padding: 2rem;">
+          <form id="chapter-form">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem;">
+              <div class="form-group">
+                <label class="form-label" for="chapter-manga-select">Mangá *</label>
+                <select id="chapter-manga-select" class="form-control" required></select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="chapter-number-input">Número do Capítulo *</label>
+                <input type="number" step="any" id="chapter-number-input" class="form-control" required placeholder="Ex: 1 ou 10.5">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="chapter-title-input">Título do Capítulo (Opcional)</label>
+                <input type="text" id="chapter-title-input" class="form-control" placeholder="Ex: Romance Dawn">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="chapter-slug-input">Slug</label>
+                <input type="text" id="chapter-slug-input" class="form-control" placeholder="chapter-1">
+              </div>
+            </div>
+
+            <!-- Upload Multiple Pages Dropzone -->
+            <div class="form-group" style="margin-top: 1.5rem;">
+              <label class="form-label">Upload de Páginas (JPG, PNG, WebP)</label>
+              <div class="upload-dropzone" id="pages-dropzone">
+                <div class="upload-icon">📑</div>
+                <h4>Arraste múltiplos arquivos de páginas para cá</h4>
+                <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">Você poderá reordenar as páginas arrastando os cards abaixo antes de salvar!</p>
+                <button type="button" class="btn btn-secondary btn-sm" style="margin-top: 1rem;">Selecionar Arquivos do Computador</button>
+                <input type="file" id="pages-file-input" multiple accept="image/*" style="display: none;">
+              </div>
+
+              <div class="progress-bar-container" id="upload-progress-bar">
+                <div class="progress-bar-fill" id="upload-progress-fill"></div>
+              </div>
+            </div>
+
+            <!-- Staged Pages Grid for Reordering before Upload -->
+            <div id="staged-pages-section" style="display: none; margin-top: 2rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">
+                <h3 style="font-size: 1.1rem; font-weight: 700;">🔄 Ordenar Imagens Selecionadas</h3>
+                <span class="badge badge-ongoing" id="staged-count-badge">0 imagens</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.35rem;">
+                💡 <strong>Dica:</strong> Arraste e solte os cards para ajustar a ordem exata de leitura antes de enviar.
+              </p>
+              <div class="pages-reorder-grid" id="staged-pages-grid"></div>
+            </div>
+
+            <!-- Existing Pages Grid (for Chapter Edit mode) -->
+            <div id="existing-pages-section" style="display: none; margin-top: 2.5rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">
+                <div>
+                  <h3 style="font-size: 1.1rem; font-weight: 700;">📚 Páginas Atuais do Capítulo</h3>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">Arraste as páginas existentes para reordenar e clique em salvar.</p>
+                </div>
+                <div style="display: flex; gap: 0.5rem; align-items: center;">
+                  <span class="badge badge-completed" id="existing-count-badge">0 páginas</span>
+                  <button type="button" class="btn btn-accent btn-sm" id="save-reorder-btn" style="display: none;" onclick="saveExistingPageOrder()">
+                    💾 Salvar Ordem das Páginas
+                  </button>
+                </div>
+              </div>
+              <div class="pages-reorder-grid" id="existing-pages-grid"></div>
+            </div>
+
+            <div style="margin-top: 2.5rem; display: flex; gap: 1rem; justify-content: flex-end;">
+              <a href="/admin" class="btn btn-secondary">Cancelar</a>
+              <button type="submit" id="save-chapter-btn" class="btn btn-primary btn-lg">Salvar Capítulo</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Manga Chapters Table -->
+        <div class="table-card" style="padding: 1.5rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem;">Capítulos Cadastrados deste Mangá</h3>
+          <div id="manga-chapters-table">
+            <p style="color: var(--text-muted); font-size: 0.85rem;">Selecione um mangá acima para ver seus capítulos.</p>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/admin-auth.js"></script>
+  <script src="/js/admin-chapter.js"></script>
+</body>
+</html>

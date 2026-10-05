@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Mangá — MangaReader</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .manga-hero-container {
+      margin-bottom: 2.5rem;
+      border-radius: var(--radius-md);
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .manga-hero-content {
+      padding: 2rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .manga-hero-content {
+        grid-template-columns: 1fr;
+        padding: 1.25rem;
+        gap: 1.25rem;
+        text-align: center;
+      }
+
+      .manga-cover-wrapper {
+        margin: 0 auto;
+      }
+
+      .manga-hero-info {
+        align-items: center;
+      }
+    }
+
+    .manga-cover-wrapper {
+      width: 100%;
+      max-width: 200px;
+      aspect-ratio: 2/3;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background-color: var(--bg-surface-secondary);
+    }
+
+    .manga-cover-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .manga-hero-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    .chapter-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 1.25rem;
+      background-color: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+      transition: border-color var(--transition-fast);
+      color: var(--text-main);
+    }
+
+    .chapter-list-item:hover {
+      border-color: var(--primary);
+    }
+
+    .chapter-list-item.last-read {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .chapter-item-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .chapter-num-badge {
+      background-color: var(--bg-surface-secondary);
+      padding: 0.25rem 0.5rem;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.8rem;
+    }
+
+    .chapter-item-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+        <span>Manga<span class="highlight">Reader</span></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Início</a></li>
+        <li><a href="/mangas" class="nav-link"><i class="fa-solid fa-layer-group"></i> Catálogo</a></li>
+        <li><a href="/search" class="nav-link"><i class="fa-solid fa-tags"></i> Gêneros</a></li>
+        <li><a href="/admin" class="nav-link" style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Painel Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="nav-search">
+          <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" id="nav-search-input" placeholder="Buscar mangás..." autocomplete="off">
+          <div class="search-dropdown" id="nav-search-dropdown"></div>
+        </div>
+        <button class="mobile-toggle" id="mobile-nav-toggle" aria-label="Abrir Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding-top: 1.75rem;" id="manga-detail-container">
+    <div class="container">
+
+      <!-- Manga Hero -->
+      <div class="manga-hero-container">
+        <div class="manga-hero-content">
+          <div class="manga-cover-wrapper">
+            <img id="manga-cover-img" src="/storage/covers/placeholder.webp" alt="Capa">
+          </div>
+          <div class="manga-hero-info">
+            <div>
+              <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.4rem;">
+                <span id="manga-status-badge" class="badge">ONGOING</span>
+                <span id="manga-year" class="tag-pill" style="display: none;"></span>
+              </div>
+              <h1 id="manga-title" style="font-size: 1.85rem; font-weight: 800;">Carregando...</h1>
+            </div>
+
+            <!-- Authors -->
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.35rem;">Autor(es):</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;" id="manga-authors"></div>
+            </div>
+
+            <!-- Tags -->
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.35rem;">Gêneros:</span>
+              <div style="display: flex; flex-wrap: wrap; gap: 0.4rem;" id="manga-tags"></div>
+            </div>
+
+            <!-- Description -->
+            <div>
+              <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block; margin-bottom: 0.35rem;">Sinopse:</span>
+              <p id="manga-description" style="color: var(--text-main); font-size: 0.9rem; line-height: 1.6; max-width: 800px;"></p>
+            </div>
+
+            <!-- Action buttons -->
+            <div style="display: flex; gap: 0.85rem; flex-wrap: wrap; margin-top: 0.5rem;" id="manga-action-buttons"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chapters Section -->
+      <section class="section">
+        <div class="section-header" style="flex-wrap: wrap; gap: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <h2 class="section-title">
+              <span class="title-accent"></span>
+              Capítulos
+            </h2>
+            <span class="tag-pill" id="chapters-count-label">0 Capítulos</span>
+          </div>
+
+          <div style="display: flex; gap: 0.65rem; align-items: center;">
+            <input type="text" id="chapter-search-input" class="form-control" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; width: 170px;" placeholder="Filtrar capítulo...">
+            <button id="chapter-sort-btn" class="btn btn-secondary btn-sm">
+              <i class="fa-solid fa-arrow-down-wide-short"></i> Ordem: Decrescente
+            </button>
+          </div>
+        </div>
+
+        <div id="chapters-list-container"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="nav-brand">
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+          <span>Manga<span class="highlight">Reader</span></span>
+        </a>
+        <p class="footer-copy">© 2026 MangaReader</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="/">Início</a></li>
+        <li><a href="/mangas">Catálogo</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/history.js"></script>
+  <script src="/js/manga-detail.js"></script>
+</body>
+</html>

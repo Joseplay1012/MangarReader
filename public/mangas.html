@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo Completo de Mangás — MangaReader</title>
+  <meta name="description" content="Explore todos os mangás disponíveis com filtros avançados por gênero, autor, status e ano de lançamento.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+        <span>Manga<span class="highlight">Reader</span></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Início</a></li>
+        <li><a href="/mangas" class="nav-link active"><i class="fa-solid fa-layer-group"></i> Catálogo</a></li>
+        <li><a href="/search" class="nav-link"><i class="fa-solid fa-tags"></i> Gêneros</a></li>
+        <li><a href="/admin" class="nav-link" style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Painel Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="nav-search">
+          <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" id="nav-search-input" placeholder="Buscar mangás..." autocomplete="off">
+          <div class="search-dropdown" id="nav-search-dropdown"></div>
+        </div>
+        <button class="mobile-toggle" id="mobile-nav-toggle" aria-label="Abrir Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content" style="padding-top: 1.75rem;">
+    <div class="container">
+
+      <!-- Page Header -->
+      <div style="margin-bottom: 1.75rem;">
+        <h1 style="font-size: 1.85rem; margin-bottom: 0.35rem;">Catálogo de Mangás</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;" id="catalog-total-count">Carregando catálogo...</p>
+      </div>
+
+      <!-- Filter Toolbar -->
+      <div class="filter-bar">
+        <div class="filter-row">
+          <div style="flex: 1; min-width: 240px;">
+            <input type="text" id="filter-search" class="form-control" placeholder="Buscar por título ou descrição...">
+          </div>
+
+          <div>
+            <select id="filter-tag" class="filter-select">
+              <option value="">Todos os Gêneros</option>
+            </select>
+          </div>
+
+          <div>
+            <select id="filter-author" class="filter-select">
+              <option value="">Todos os Autores</option>
+            </select>
+          </div>
+
+          <div>
+            <select id="filter-status" class="filter-select">
+              <option value="">Todos os Status</option>
+              <option value="ongoing">Em Lançamento (Ongoing)</option>
+              <option value="completed">Finalizado (Completed)</option>
+              <option value="hiatus">Em Hiato (Hiatus)</option>
+            </select>
+          </div>
+
+          <div>
+            <select id="filter-sort" class="filter-select">
+              <option value="updated">Atualizados Recentemente</option>
+              <option value="recent">Adicionados Recentemente</option>
+              <option value="title">Ordem Alfabética (A-Z)</option>
+              <option value="year">Ano de Lançamento</option>
+            </select>
+          </div>
+
+          <div>
+            <button id="filter-reset-btn" class="btn btn-secondary btn-sm" title="Limpar Filtros">
+              <i class="fa-solid fa-arrow-rotate-right"></i> Limpar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Manga Grid -->
+      <div class="manga-grid" id="mangas-catalog-grid"></div>
+
+      <!-- Pagination -->
+      <div class="pagination" id="catalog-pagination"></div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="nav-brand">
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+          <span>Manga<span class="highlight">Reader</span></span>
+        </a>
+        <p class="footer-copy">© 2026 MangaReader — Catálogo completo.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="/">Início</a></li>
+        <li><a href="/mangas">Catálogo</a></li>
+        <li><a href="/search">Busca</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/history.js"></script>
+  <script src="/js/mangas.js"></script>
+</body>
+</html>

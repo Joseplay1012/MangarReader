@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MangaReader — Leia seus mangás favoritos online em alta qualidade</title>
+  <meta name="description" content="Plataforma moderna de leitura e publicação de mangás com leitor fluido página a página e modo cascata.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="nav-brand">
+        <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+        <span>Manga<span class="highlight">Reader</span></span>
+      </a>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/" class="nav-link active"><i class="fa-solid fa-house"></i> Início</a></li>
+        <li><a href="/mangas" class="nav-link"><i class="fa-solid fa-layer-group"></i> Catálogo</a></li>
+        <li><a href="/search" class="nav-link"><i class="fa-solid fa-tags"></i> Gêneros</a></li>
+        <li><a href="/admin" class="nav-link" style="color: var(--primary);"><i class="fa-solid fa-shield-halved"></i> Painel Admin</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="nav-search">
+          <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <input type="text" id="nav-search-input" placeholder="Buscar mangás, autores..." autocomplete="off">
+          <div class="search-dropdown" id="nav-search-dropdown"></div>
+        </div>
+        <button class="mobile-toggle" id="mobile-nav-toggle" aria-label="Abrir Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+
+      <!-- Hero Featured Section -->
+      <section class="hero-section" id="hero-container">
+        <!-- Injected via home.js -->
+      </section>
+
+      <!-- Reading History / Continue Reading -->
+      <section class="section" id="history-section" style="display: none;">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-accent"></span>
+            Continuar Lendo
+          </h2>
+        </div>
+        <div class="history-grid" id="history-grid"></div>
+      </section>
+
+      <!-- Recently Updated Mangas -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-accent"></span>
+            Atualizados Recentemente
+          </h2>
+          <a href="/mangas?sort=updated" class="section-more">Ver Todos <i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+        <div class="manga-grid" id="recent-updated-grid"></div>
+      </section>
+
+      <!-- Recently Added Mangas -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-accent"></span>
+            Lançamentos Recentes
+          </h2>
+          <a href="/mangas?sort=recent" class="section-more">Ver Todos <i class="fa-solid fa-chevron-right"></i></a>
+        </div>
+        <div class="manga-grid" id="recent-added-grid"></div>
+      </section>
+
+      <!-- Popular Tags Cloud -->
+      <section class="section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <span class="title-accent"></span>
+            Explorar por Gêneros
+          </h2>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;" id="tags-cloud"></div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="/" class="nav-brand">
+          <div class="brand-logo"><i class="fa-solid fa-book-open"></i></div>
+          <span>Manga<span class="highlight">Reader</span></span>
+        </a>
+        <p class="footer-copy">© 2026 MangaReader — Plataforma moderna de leitura online.</p>
+      </div>
+      <ul class="footer-links">
+        <li><a href="/">Início</a></li>
+        <li><a href="/mangas">Catálogo</a></li>
+        <li><a href="/search">Busca</a></li>
+        <li><a href="/admin">Administração</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/history.js"></script>
+  <script src="/js/home.js"></script>
+</body>
+</html>
